@@ -1,0 +1,57 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+repositories {
+    google()
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    api project(path: ':core')
+}
+
+android {
+    // https://developer.android.com/build/configure-app-module#set-namespace
+    namespace = 'nullsteam.mods.artwork'
+    compileSdkVersion = 34
+
+    defaultConfig {
+        minSdkVersion = 21
+        targetSdkVersion = 34
+
+        versionCode = 1
+        versionName = project.version
+    }
+
+    // NOTE: supplied through toolchain
+    // compileOptions {
+    //     sourceCompatibility JavaVersion.VERSION_17
+    //     targetCompatibility JavaVersion.VERSION_17
+    // }
+    
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+}

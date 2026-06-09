@@ -1,0 +1,57 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Make Gradle executable
+        run: chmod +x gradlew
+
+      - name: Build
+        run: ./gradlew assemble
+
+      - name: Collect artifacts
+        run: |
+          mkdir release-assets
+
+          find . \
+            \( -path "*/build/libs/*.jar" \
+            -o -path "*/build/outputs/aar/*.aar" \
+            -o -path "*/build/outputs/apk/**/*.apk" \) \
+            -type f \
+            -exec cp {} release-assets/ \;
+
+          ls -lah release-assets
+
+      - name: Get release version from tag
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          name: ${{ github.event.repository.name }}-${{ env.VERSION }}
+          files: release-assets/*
+          generate_release_notes: true

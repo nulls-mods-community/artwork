@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+}
+
+group = 'nullsteam.mods.artwork'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation project(':core')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'dev.donutquine.Main'
+}
