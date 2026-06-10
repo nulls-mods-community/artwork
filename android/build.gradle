@@ -23,24 +23,26 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation libs.junit.jupiter
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     api project(path: ':core')
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 android {
     // https://developer.android.com/build/configure-app-module#set-namespace
-    namespace = 'nullsteam.mods.artwork'
-    compileSdkVersion = 34
+    namespace 'nullsteam.mods.artwork'
 
     defaultConfig {
-        minSdkVersion = 21
-        targetSdkVersion = 34
+        minSdkVersion 21
+        targetSdkVersion 34
+        compileSdk 34
 
-        versionCode = 1
-        versionName = project.version
+        versionCode 1
+        versionName project.version
     }
 
     // NOTE: supplied through toolchain
@@ -48,10 +50,4 @@ android {
     //     sourceCompatibility JavaVersion.VERSION_17
     //     targetCompatibility JavaVersion.VERSION_17
     // }
-    
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
 }

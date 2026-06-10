@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    alias(libs.plugins.shadow.jar)
 }
 
 group = 'nullsteam.mods.artwork'
@@ -15,6 +16,8 @@ dependencies {
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.lzma
+    implementation libs.json
 }
 
 // Supplies defaults for sourceCompatibility and targetCompatibility.

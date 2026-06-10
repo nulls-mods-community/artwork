@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    alias(libs.plugins.shadow.jar)
 }
 
 group = 'nullsteam.mods.artwork'
@@ -9,17 +10,17 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation libs.junit.jupiter
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     implementation project(':core')
+    implementation libs.json
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 application {
-    mainClass = 'dev.donutquine.Main'
+    // NOTE: the class name is kept the same as in legacy closed builds for compatibility reasons
+    mainClass = 'daniillnull.tools.content.Main'
 }
