@@ -83,7 +83,6 @@ public class TablePatching {
 	public static JSONObject resolveWildcards(JSONObject patch, DataTable table) {
 		JSONObject result = new JSONObject();
 		Set<String> keys = new HashSet<>(patch.keySet());
-		// Process wildcards:
 		for (String key : new ArrayList<>(keys)) {
 			Collection<String> names = getWildcards(key, table);
 			if (names != null) {

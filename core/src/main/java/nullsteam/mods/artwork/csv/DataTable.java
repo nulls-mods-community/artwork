@@ -101,6 +101,7 @@ public class DataTable {
 	}
 
 	public static DataTable load(byte[] data) throws DataFormatException {
+        // NOTE: 4-bytes `SIG:` magic are followed by 64-bytes signature
 		if (data.length >= 68 && data[0] == 'S' && data[1] == 'i' && data[2] == 'g' && data[3] == ':') {
 			data = Arrays.copyOfRange(data, 68, data.length);
 		}

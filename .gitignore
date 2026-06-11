@@ -19,3 +19,5 @@ local.properties
 .settings
 .classpath
 .project
+# Ignore only in subfolders to allow using bin directory in the root folder
+*/bin/
