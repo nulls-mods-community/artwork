@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath(libs.android.core)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -34,15 +34,19 @@ java {
 
 android {
     // https://developer.android.com/build/configure-app-module#set-namespace
-    namespace 'nullsteam.mods.artwork'
+    namespace = 'nullsteam.mods.artwork'
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 34
-        compileSdk 34
+        compileSdkVersion 34
 
         versionCode 1
         versionName project.version
+    }
+
+    lint {
+        disable "OldTargetApi"
     }
 
     // NOTE: supplied through toolchain
