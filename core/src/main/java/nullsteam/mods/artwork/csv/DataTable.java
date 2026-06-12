@@ -1,7 +1,5 @@
 package nullsteam.mods.artwork.csv;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +31,7 @@ public class DataTable {
 	}
 
 	public Object cast(int column, Object value) {
-		if (value != null && value != JSONObject.NULL) {
+		if (value != null) {
 			if (value instanceof String string && string.isEmpty()) {
 				return null;
 			}

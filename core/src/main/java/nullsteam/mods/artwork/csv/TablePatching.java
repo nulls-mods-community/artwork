@@ -58,15 +58,7 @@ public class TablePatching {
 					throw new RuntimeException("column not found: " + columnName);
 				}
 				Object valueJson = data.get(columnName);
-				List<Object> objects = new ArrayList<>();
-				if (valueJson instanceof JSONArray) {
-					JSONArray valueArrayJson = (JSONArray) valueJson;
-					for (int i = 0; i < valueArrayJson.length(); i++) {
-						objects.add(valueArrayJson.get(i));
-					}
-				} else {
-					objects.add(valueJson);
-				}
+				List<Object> objects = getCells(valueJson);
 				for (int i = 0; i < size; i++) {
 					List<Object> row = table.data.get(index + i);
 					if (i < objects.size()) {
@@ -143,6 +135,21 @@ public class TablePatching {
 			return result;
 		}
 		return null;
+	}
+
+	private static List<Object> getCells(Object value) {
+		// NOTE: This method SHOULD ensure that no JSON objects or arrays will be returned, including JSONObject.NULL value
+		if (value instanceof JSONArray array) {
+			return array.toList();
+		}
+		if (value instanceof JSONObject) {
+			throw new IllegalArgumentException("getCells() cannot be used with JSONObject for now");
+		}
+		List<Object> list = new ArrayList<>(1);
+		if (value != JSONObject.NULL) {
+			list.add(value);
+		}
+		return list;
 	}
 
 	public static void merge(JSONObject base, JSONObject second) {
