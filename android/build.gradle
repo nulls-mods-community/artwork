@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.fuselibrary)
 }
 
 repositories {
@@ -23,35 +23,10 @@ repositories {
 }
 
 dependencies {
-    api project(path: ':core')
+    include project(path: ':core')
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-android {
-    // https://developer.android.com/build/configure-app-module#set-namespace
+androidFusedLibrary {
     namespace = 'nullsteam.mods.artwork'
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 34
-        compileSdkVersion 34
-
-        versionCode 1
-        versionName project.version
-    }
-
-    lint {
-        disable "OldTargetApi"
-    }
-
-    // NOTE: supplied through toolchain
-    // compileOptions {
-    //     sourceCompatibility JavaVersion.VERSION_17
-    //     targetCompatibility JavaVersion.VERSION_17
-    // }
+    minSdk = 18
 }

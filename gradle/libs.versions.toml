@@ -12,5 +12,5 @@ lzma = { module = "com.github.jponge:lzma-java", version.ref = "lzma" }
 json = { module = "org.json:json", version.ref = "json" }
 
 [plugins]
-android-library = { id = "com.android.library", version.ref = "android-plugin" }
+android-fuselibrary = { id = "com.android.fused-library", version.ref = "android-plugin" }
 shadow-jar = { id = "com.gradleup.shadow", version.ref = "shadow-jar" }
