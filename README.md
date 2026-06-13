@@ -91,7 +91,7 @@ In the example above, `assets2/csv_logic/emotes.csv` will be used as the base fi
 
 The `content.json` format is intentionally designed to be compatible with the .NullsBrawlAssets manifest format. Therefore, all top-level keys beginning with `@` are treated as metadata and ignored by the CLI.
 
-<!-- The special `$schema` key is also ignored. It can be used by editors and IDEs to associate the file with a JSON Schema and provide validation, completion, and documentation hints. -->
+The special `$schema` key is also ignored. It can be used by editors and IDEs to associate the file with a JSON Schema and provide validation, completion, and documentation hints.
 
 The other keys in the patch file must correspond to a CSV file name (without the `.csv` extension). Each value uses the same patch format accepted by `TableMutator`.
 

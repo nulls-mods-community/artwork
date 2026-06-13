@@ -54,7 +54,7 @@ public class Main {
 		TableMutator mutator = TableMutator.getInstance();
 
 		for (String key : contentJson.keySet()) {
-			if (!key.startsWith("@")) {
+			if (!key.startsWith("@") && !key.equals("$schema")) {
 				System.out.println("Processing: " + key);
 
 				LookupFile lookup = lookup(inputPaths, key + ".csv");
