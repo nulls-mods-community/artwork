@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 import java.util.zip.DataFormatException;
 
 import nullsteam.mods.artwork.csv.DataTable;
-import nullsteam.mods.artwork.csv.TablePatching;
+import nullsteam.mods.artwork.csv.TableMutator;
 
 public class Main {
 	public static int FILE_SIZE_LIMIT = 5_000_000;
@@ -41,6 +41,8 @@ public class Main {
 			inputPaths.add(0, new File(args[i]));
 		}
 
+		TableMutator mutator = TableMutator.getInstance();
+
 		for (String key : contentJson.keySet()) {
 			if (!key.startsWith("@")) {
 				System.out.println("Processing: " + key);
@@ -56,14 +58,15 @@ public class Main {
 
 				DataTable table;
 				try (InputStream is = new FileInputStream(inputFile)) {
-					table = DataTable.load(is.readAllBytes());
+					table = mutator.load(is);
 				}
 
-				JSONObject patch = TablePatching.resolveWildcards(contentJson.getJSONObject(key), table);
-				TablePatching.applyPatch(table, patch);
+				JSONObject patch = contentJson.getJSONObject(key);
+				mutator.apply(table, patch);
 
 				try (FileOutputStream stream = new FileOutputStream(outputFile)) {
 					FiniteFileWriter writer = new FiniteFileWriter(stream, FILE_SIZE_LIMIT);
+					// NOTE: We could call mutator.save(), but we need file size limits from our custom writer, so save the file directly
 					table.save(writer);
 				}
 
