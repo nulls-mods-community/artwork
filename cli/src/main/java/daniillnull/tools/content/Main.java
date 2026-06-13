@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -36,10 +37,19 @@ public class Main {
 		}
 
 		String outputPath = args[1];
-		List<File> inputPaths = new ArrayList<>();
+        
+        // We know exact number of inputs in advance, so we preallocate ArrayList capacity
+        // to avoid unnecessary resizing during insertion.
+		List<File> inputPaths = new ArrayList<>(args.length - 2);
+
 		for (int i = 2; i < args.length; i++) {
-			inputPaths.add(0, new File(args[i]));
+			inputPaths.add(new File(args[i]));
 		}
+
+        // We store input asset paths in reverse order because lookup priority is determined
+        // by list order: later assets override earlier ones. This ensures that the last
+        // provided path has the highest priority during asset resolution.
+        Collections.reverse(inputPaths);
 
 		TableMutator mutator = TableMutator.getInstance();
 
