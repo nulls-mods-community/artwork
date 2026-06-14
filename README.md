@@ -72,15 +72,29 @@ Where:
 
 Example:
 
-```
-assets1/csv_logic/emotes.csv
-assets2/csv_logic/emotes.csv
+```bash
+> tree
+.
+├── assets1
+│   └── csv_logic
+│       └── emotes.csv
+├── assets2
+│   └── csv_logic
+│       └── emotes.csv
+└── content.json
+
+5 directories, 3 files
 ```
 
 will be patched as:
 
 ```
-patched/csv_logic/emotes.csv
+> tree patched
+patched
+└── csv_logic
+    └── emotes.csv
+
+2 directories, 1 file
 ```
 
 If the same file exists in multiple input directories, the file from the last provided directory takes priority.  
