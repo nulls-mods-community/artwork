@@ -125,3 +125,7 @@ For example:
 ```
 
 In this example, `@title` and `@author` are treated as metadata and are ignored during patching.
+
+### License
+
+This project is licensed under MIT license ([LICENSE](LICENSE) or https://opensource.org/licenses/MIT).
