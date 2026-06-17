@@ -1,6 +1,8 @@
 plugins {
     id 'java-library'
     alias(libs.plugins.shadow.jar)
+
+    id 'github-publish'
 }
 
 group = 'nullsteam.mods.artwork'
@@ -30,4 +32,12 @@ java {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+        }
+    }
 }

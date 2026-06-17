@@ -9,6 +9,32 @@ permissions:
   contents: write
 
 jobs:
+  publish-to-github-packages:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Make Gradle executable
+        run: chmod +x gradlew
+        
+      - name: Publish to Github Packages
+        env:
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ./gradlew test publishReleasePublicationToGitHubPackagesRepository
   build-and-release:
     runs-on: ubuntu-latest
 

@@ -14,6 +14,7 @@ buildscript {
 
 plugins {
     alias(libs.plugins.android.fuselibrary)
+    id 'github-publish'
 }
 
 repositories {
@@ -26,7 +27,20 @@ dependencies {
     include project(path: ':core')
 }
 
+group = 'nullsteam.mods.artwork'
+
 androidFusedLibrary {
-    namespace = 'nullsteam.mods.artwork'
+    namespace = project.group
     minSdk = 18
 }
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            afterEvaluate {
+                from components.fusedLibraryComponent
+            }
+        }
+    }
+}
+
